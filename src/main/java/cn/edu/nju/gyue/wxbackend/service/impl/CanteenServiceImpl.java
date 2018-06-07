@@ -13,11 +13,13 @@ import cn.edu.nju.gyue.wxbackend.repository.*;
 import cn.edu.nju.gyue.wxbackend.service.CanteenService;
 import cn.edu.nju.gyue.wxbackend.service.component.TransferComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class CanteenServiceImpl implements CanteenService {
 
     @Autowired

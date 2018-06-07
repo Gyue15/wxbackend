@@ -5,11 +5,9 @@ import cn.edu.nju.gyue.wxbackend.model.CommentModel;
 import cn.edu.nju.gyue.wxbackend.model.FoodModel;
 import cn.edu.nju.gyue.wxbackend.model.WindowModel;
 import cn.edu.nju.gyue.wxbackend.parm.CommentType;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface CanteenService {
     List<CanteenModel> getCanteenList(Long schoolId);
 
