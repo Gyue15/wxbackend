@@ -10,6 +10,10 @@ public class Window {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long windowId;
 
+    private String windowName;
+
+    private String photoUrl;
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "canteen_id")
     private Canteen canteen;
@@ -39,5 +43,21 @@ public class Window {
 
     public void setFoods(List<Food> foods) {
         this.foods = foods;
+    }
+
+    public String getWindowName() {
+        return windowName;
+    }
+
+    public void setWindowName(String windowName) {
+        this.windowName = windowName;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

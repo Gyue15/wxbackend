@@ -1,16 +1,15 @@
 package cn.edu.nju.gyue.wxbackend.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import cn.edu.nju.gyue.wxbackend.parm.CommentType;
+
+import javax.persistence.*;
 
 @Entity
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long canteenCommentId;
+    private Long commentId;
 
     private boolean isReply;
 
@@ -18,19 +17,20 @@ public class Comment {
 
     private String comment;
 
-    private boolean isFood;
+    @Enumerated(EnumType.STRING)
+    private CommentType commentType;
 
     private Long relatedId;
 
-    public Long getCanteenCommentId() {
-        return canteenCommentId;
+    public Long getCommentId() {
+        return commentId;
     }
 
-    public void setCanteenCommentId(Long canteenCommentId) {
-        this.canteenCommentId = canteenCommentId;
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
     }
 
-    public boolean isReply() {
+    public boolean getIsReply() {
         return isReply;
     }
 
@@ -54,19 +54,19 @@ public class Comment {
         this.comment = comment;
     }
 
-    public boolean isFood() {
-        return isFood;
-    }
-
-    public void setFood(boolean food) {
-        isFood = food;
-    }
-
     public Long getRelatedId() {
         return relatedId;
     }
 
     public void setRelatedId(Long relatedId) {
         this.relatedId = relatedId;
+    }
+
+    public CommentType getCommentType() {
+        return commentType;
+    }
+
+    public void setCommentType(CommentType commentType) {
+        this.commentType = commentType;
     }
 }

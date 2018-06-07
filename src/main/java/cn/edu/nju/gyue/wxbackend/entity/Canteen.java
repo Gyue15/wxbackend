@@ -14,8 +14,14 @@ public class Canteen {
 
     private String password;
 
+    private String photoUrl;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "canteen")
     private List<Window> windows;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "school_id")
+    private School school;
 
     public Long getCanteenId() {
         return canteenId;
@@ -47,5 +53,21 @@ public class Canteen {
 
     public void setWindows(List<Window> windows) {
         this.windows = windows;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

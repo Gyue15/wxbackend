@@ -17,6 +17,8 @@ public class Food {
 
     private String description;
 
+    private String photoUrl;
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "window_id")
     private Window window;
@@ -59,5 +61,13 @@ public class Food {
 
     public void setWindow(Window window) {
         this.window = window;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

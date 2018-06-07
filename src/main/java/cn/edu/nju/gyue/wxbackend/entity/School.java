@@ -17,6 +17,9 @@ public class School {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "school")
     private List<Student> students;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "school")
+    private List<Canteen> canteens;
+
     public Long getSchoolId() {
         return schoolId;
     }
@@ -47,5 +50,13 @@ public class School {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public List<Canteen> getCanteens() {
+        return canteens;
+    }
+
+    public void setCanteens(List<Canteen> canteens) {
+        this.canteens = canteens;
     }
 }

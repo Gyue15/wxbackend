@@ -2,6 +2,8 @@ package cn.edu.nju.gyue.wxbackend.controller;
 
 import cn.edu.nju.gyue.wxbackend.model.SchoolModel;
 import cn.edu.nju.gyue.wxbackend.model.StudentModel;
+import cn.edu.nju.gyue.wxbackend.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,24 +15,27 @@ import java.util.List;
 @RequestMapping(value = "/api/student", produces = "application/json;charset=UTF-8")
 public class StudentController {
 
+    @Autowired
+    private StudentService studentService;
+
     @PostMapping("/login")
     public StudentModel login(String username, String password) {
-        return null;
+        return studentService.login(username, password);
     }
 
     @PostMapping("/sign-up")
     public StudentModel signUp(String username, String password) {
-        return null;
+        return studentService.signUp(username, password);
     }
 
     @PostMapping("/select-school")
-    public StudentModel selectSchool(Long schoolId, String username) {
-        return null;
+    public StudentModel selectSchool(Long schoolId, Long studentId) {
+        return studentService.selectSchool(schoolId, studentId);
     }
 
     @GetMapping("/schools")
     public List<SchoolModel> getSchoolList() {
-        return null;
+        return studentService.getSchoolList();
     }
 
 
