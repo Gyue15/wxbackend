@@ -38,5 +38,8 @@ public class StudentController {
         return studentService.getSchoolList();
     }
 
-
+    @GetMapping("/personal-school")
+    public SchoolModel getPersonalSchool(String openId){
+        return null;
+    }
 }
