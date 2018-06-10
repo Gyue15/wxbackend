@@ -30,7 +30,8 @@ public class StudentController {
 
     @PostMapping("/select-school")
     public StudentModel selectSchool(Long schoolId, Long studentId) {
-        return studentService.selectSchool(schoolId, studentId);
+//        return studentService.selectSchool("", studentId);
+        return null;
     }
 
     @GetMapping("/schools")

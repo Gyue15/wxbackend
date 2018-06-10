@@ -11,8 +11,10 @@ public interface StudentService {
 
     StudentModel signUp(String username, String password);
 
-    StudentModel selectSchool(Long schoolId, Long studentId);
+    String selectSchool(Long schoolId, String openId);
 
     List<SchoolModel> getSchoolList();
+
+    String getSchool(String openId);
 
 }

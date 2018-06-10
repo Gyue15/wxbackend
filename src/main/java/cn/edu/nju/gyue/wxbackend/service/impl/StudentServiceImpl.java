@@ -1,10 +1,12 @@
 package cn.edu.nju.gyue.wxbackend.service.impl;
 
+import cn.edu.nju.gyue.wxbackend.entity.OpenIdKitchen;
 import cn.edu.nju.gyue.wxbackend.entity.School;
 import cn.edu.nju.gyue.wxbackend.entity.Student;
 import cn.edu.nju.gyue.wxbackend.exception.BadRequestException;
 import cn.edu.nju.gyue.wxbackend.model.SchoolModel;
 import cn.edu.nju.gyue.wxbackend.model.StudentModel;
+import cn.edu.nju.gyue.wxbackend.repository.OpenIdKitchenRepository;
 import cn.edu.nju.gyue.wxbackend.repository.SchoolRepository;
 import cn.edu.nju.gyue.wxbackend.repository.StudentRepository;
 import cn.edu.nju.gyue.wxbackend.service.StudentService;
@@ -29,6 +31,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private TransferComponent transferComponent;
 
+    @Autowired
+    private OpenIdKitchenRepository openIdKitchenRepository;
+
     @Override
     public StudentModel login(String username, String password) {
         Student student = studentRepository.findByUsernameAndPassword(username, password);
@@ -52,30 +57,39 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentModel selectSchool(Long schoolId, Long studentId) {
+    public String selectSchool(Long schoolId,String openId) {
         Optional<School> schoolOptional = schoolRepository.findById(schoolId);
         if (!schoolOptional.isPresent()) {
-            throw new BadRequestException("没有该学校");
+            return "没有该学校";
         }
-        School school = schoolOptional.get();
-
-        Optional<Student> studentOptional = studentRepository.findById(schoolId);
-        if (!studentOptional.isPresent()) {
-            throw new BadRequestException("没有该学生");
+        OpenIdKitchen openIdKitchen = openIdKitchenRepository.findByOpenId(openId);
+        if(openIdKitchen == null) {
+            OpenIdKitchen openIdKitchen2 = new OpenIdKitchen();
+            openIdKitchen2.setOpenId(openId);
+            openIdKitchen2.setKitchen(schoolId);
+            openIdKitchenRepository.save(openIdKitchen2);
+            return "success";
         }
-        Student student = studentOptional.get();
-
-        student.setHasSchool(true);
-        student.setSchool(school);
-        student = studentRepository.saveAndFlush(student);
-
-        return transferComponent.toModel(student);
+        openIdKitchen.setKitchen(schoolId);
+        openIdKitchenRepository.saveAndFlush(openIdKitchen);
+        return "success";
     }
 
     @Override
     public List<SchoolModel> getSchoolList() {
         List<School> schoolList = schoolRepository.findAll();
         return schoolList.stream().map(transferComponent::toModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getSchool(String openId) {
+        OpenIdKitchen openIdKitchen = openIdKitchenRepository.findByOpenId(openId);
+        if(openIdKitchen ==null){
+            return "请选择学校";
+        }else {
+            School school = schoolRepository.findBySchoolId(openIdKitchen.getKitchen());
+            return school.getSchoolName();
+        }
     }
 
     private void verifyStudent(Student student) {
